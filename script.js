@@ -2,68 +2,62 @@ const startScreen = document.getElementById("startScreen");
 const gameScreen = document.getElementById("gameScreen");
 const finalScreen = document.getElementById("finalScreen");
 
-const messages = [
-  "Pensei em você 💭",
-  "Seu sorriso me acalma 😍",
-  "Meu coração sente sua falta 💓",
-  "Tudo em mim chama por você 🫶",
-  "Essa saudade tem nome ❤️"
+const thoughts = [
+  "Tem dias que você cruza minha cabeça do nada",
+  "Algumas coisas lembram você",
+  "Não é drama, é ausência",
+  "Faz falta mais do que eu admito",
+  "O silêncio entrega",
+  "Tem gente que deixa marca",
+  "Você é uma delas"
 ];
 
 let collected = 0;
-const total = messages.length;
+const total = thoughts.length;
 
-// Iniciar jogo
 startScreen.addEventListener("click", () => {
   startScreen.classList.remove("active");
   gameScreen.classList.add("active");
   spawnHearts();
 });
 
-// Criar corações
 function spawnHearts() {
   const interval = setInterval(() => {
     if (collected >= total) {
       clearInterval(interval);
-      setTimeout(showFinal, 1500);
+      setTimeout(showFinal, 1200);
       return;
     }
 
     const heart = document.createElement("div");
     heart.classList.add("heart");
     heart.innerHTML = "❤️";
-
     heart.style.left = Math.random() * 80 + "vw";
 
-    heart.addEventListener("click", () => {
-      showMessage(messages[collected]);
+    heart.addEventListener("click", (e) => {
+      spawnThought(e.clientX, e.clientY, thoughts[collected]);
       collected++;
       heart.remove();
     });
 
     gameScreen.appendChild(heart);
-
     setTimeout(() => heart.remove(), 6500);
   }, 900);
 }
 
-// Mostrar mensagem suave
-function showMessage(text) {
-  const msg = document.createElement("div");
-  msg.innerText = text;
-  msg.style.position = "absolute";
-  msg.style.bottom = "20%";
-  msg.style.fontSize = "1.2em";
-  msg.style.opacity = "0";
-  msg.style.transition = "opacity 1s";
+function spawnThought(x, y, text) {
+  const thought = document.createElement("div");
+  thought.classList.add("thought");
+  thought.innerText = text;
 
-  gameScreen.appendChild(msg);
+  thought.style.left = x - 60 + "px";
+  thought.style.top = y - 20 + "px";
 
-  setTimeout(() => msg.style.opacity = "1", 100);
-  setTimeout(() => msg.remove(), 2500);
+  gameScreen.appendChild(thought);
+
+  setTimeout(() => thought.remove(), 3000);
 }
 
-// Tela final
 function showFinal() {
   gameScreen.classList.remove("active");
   finalScreen.classList.add("active");
