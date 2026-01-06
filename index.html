@@ -2,21 +2,31 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Tenho Saudade de Você ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Saudade de Você ❤️</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
-    <h1>Um joguinho só pra você 💕</h1>
-    <p>Clique nos corações… cada um guarda um pedacinho da minha saudade.</p>
+  <!-- Tela inicial -->
+  <div id="startScreen" class="screen active">
+    <h1>Tenho algo pra você 💕</h1>
+    <p>Toque na tela</p>
+  </div>
 
-    <div id="gameArea"></div>
+  <!-- Área do jogo -->
+  <div id="gameScreen" class="screen">
+    <div id="hint">Toque nos corações 💖</div>
+  </div>
 
-    <div id="finalMessage" class="hidden">
-      <h2>💖 Tô com muita saudade de você, meu amor 💖</h2>
-      <p>Conta os dias, as horas e até os suspiros… tudo me lembra você.</p>
-    </div>
+  <!-- Tela final -->
+  <div id="finalScreen" class="screen">
+    <h2>Meu amor…</h2>
+    <p>
+      Mesmo longe, meu coração sempre acha o caminho até você.
+      <br><br>
+      Tô com muita saudade de você ❤️
+    </p>
   </div>
 
   <script src="script.js"></script>
