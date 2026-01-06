@@ -1,88 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap');
+const startScreen = document.getElementById("startScreen");
+const gameScreen = document.getElementById("gameScreen");
+const finalScreen = document.getElementById("finalScreen");
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+const messages = [
+  "Pensei em você 💭",
+  "Seu sorriso me acalma 😍",
+  "Meu coração sente sua falta 💓",
+  "Tudo em mim chama por você 🫶",
+  "Essa saudade tem nome ❤️"
+];
+
+let collected = 0;
+const total = messages.length;
+
+// Iniciar jogo
+startScreen.addEventListener("click", () => {
+  startScreen.classList.remove("active");
+  gameScreen.classList.add("active");
+  spawnHearts();
+});
+
+// Criar corações
+function spawnHearts() {
+  const interval = setInterval(() => {
+    if (collected >= total) {
+      clearInterval(interval);
+      setTimeout(showFinal, 1500);
+      return;
+    }
+
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * 80 + "vw";
+
+    heart.addEventListener("click", () => {
+      showMessage(messages[collected]);
+      collected++;
+      heart.remove();
+    });
+
+    gameScreen.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6500);
+  }, 900);
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  background: linear-gradient(160deg, #ff758c, #ff7eb3);
-  color: #fff;
+// Mostrar mensagem suave
+function showMessage(text) {
+  const msg = document.createElement("div");
+  msg.innerText = text;
+  msg.style.position = "absolute";
+  msg.style.bottom = "20%";
+  msg.style.fontSize = "1.2em";
+  msg.style.opacity = "0";
+  msg.style.transition = "opacity 1s";
+
+  gameScreen.appendChild(msg);
+
+  setTimeout(() => msg.style.opacity = "1", 100);
+  setTimeout(() => msg.remove(), 2500);
 }
 
-.screen {
-  position: absolute;
-  inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 20px;
-}
-
-.screen.active {
-  display: flex;
-}
-
-h1, h2 {
-  font-family: 'Pacifico', cursive;
-  margin-bottom: 15px;
-}
-
-#startScreen p {
-  opacity: 0.8;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
-#hint {
-  position: absolute;
-  top: 20px;
-  font-size: 0.9em;
-  opacity: 0.8;
-}
-
-.heart {
-  position: absolute;
-  font-size: 2.5em;
-  animation: floatUp 6s linear forwards;
-}
-
-@keyframes floatUp {
-  from {
-    transform: translateY(100vh) scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(-20vh) scale(1.2);
-    opacity: 1;
-  }
-}
-
-#finalScreen p {
-  font-size: 1.1em;
-  line-height: 1.6;
-  animation: fadeIn 2s ease forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+// Tela final
+function showFinal() {
+  gameScreen.classList.remove("active");
+  finalScreen.classList.add("active");
 }
