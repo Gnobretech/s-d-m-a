@@ -12,7 +12,7 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background: linear-gradient(160deg, #ff758c, #ff7eb3);
+  background: linear-gradient(160deg, #1f1c2c, #928dab);
   color: #fff;
 }
 
@@ -36,26 +36,16 @@ h1, h2 {
   margin-bottom: 15px;
 }
 
-#startScreen p {
-  opacity: 0.8;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
 #hint {
   position: absolute;
-  top: 20px;
-  font-size: 0.9em;
-  opacity: 0.8;
+  top: 16px;
+  font-size: 0.85em;
+  opacity: 0.7;
 }
 
 .heart {
   position: absolute;
-  font-size: 2.5em;
+  font-size: 2.3em;
   animation: floatUp 6s linear forwards;
 }
 
@@ -65,24 +55,34 @@ h1, h2 {
     opacity: 0;
   }
   to {
-    transform: translateY(-20vh) scale(1.2);
+    transform: translateY(-20vh) scale(1.1);
     opacity: 1;
+  }
+}
+
+.thought {
+  position: absolute;
+  font-size: 0.95em;
+  opacity: 0;
+  animation: popThought 3s ease forwards;
+  max-width: 70%;
+}
+
+@keyframes popThought {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
   }
 }
 
 #finalScreen p {
   font-size: 1.1em;
   line-height: 1.6;
-  animation: fadeIn 2s ease forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
